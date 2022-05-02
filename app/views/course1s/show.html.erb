@@ -4,7 +4,7 @@
     <div class="col-lg-6">
       <%= render @course1 %>
     <div class="col-lg-6">
-    <%= link_to "Add Lesson", new_course1_lesson1_path(@course1, @lesson1) %>
+    <%= link_to "Add Lesson", new_course1_lesson1_path(@course1, @lesson1), class: "btn btn-primary btn-sm my-3 btn-block" %>
     <% @lesson1s.each do |lesson| %>
       <%= render "lesson1s/lesson", lesson1: lesson %><br>
     <% end %>
