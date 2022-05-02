@@ -3,11 +3,19 @@ class Course1sController < ApplicationController
 
   # GET /course1s or /course1s.json
   def index
+    if params[:query].present?
+      @course1_search = Course1.where("title LIKE '%#{params[:query]}%'")
+    end
     @course1s = Course1.order(:title).page(params[:page])
+    # if params[:query].present?
+    #   @course1_search = Course1.where("title LIKE '%#{params[:query]}%'")
+    # end
+    @user = User.all
   end
 
   # GET /course1s/1 or /course1s/1.json
   def show
+    @lesson1s = @course1.lesson1s.all
   end
 
   # GET /course1s/new
@@ -17,6 +25,7 @@ class Course1sController < ApplicationController
 
   # GET /course1s/1/edit
   def edit
+    authorize @course
   end
 
   # POST /course1s or /course1s.json
@@ -47,6 +56,12 @@ class Course1sController < ApplicationController
     end
   end
 
+  def search
+    if params[:query].present?
+      @course1_search = Course1.where("title LIKE '%#{params[:query]}%'")
+    end
+  end
+
   # DELETE /course1s/1 or /course1s/1.json
   def destroy
     @course1.destroy
@@ -61,11 +76,11 @@ class Course1sController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_course1
-    @course1 = Course1.find(params[:id])
+    @course1 = Course1.friendly.find(params[:id])
   end
 
   # Only allow a list of trusted parameters through.
   def course1_params
-    params.require(:course1).permit(:title, :description)
+    params.require(:course1).permit(:title, :description, :short_description, :price, :language, :level)
   end
 end

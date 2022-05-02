@@ -1,0 +1,32 @@
+<div class="container">
+<% # <div class= "card-header"> %>
+ <% @users.each do |role| %>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card shadow">
+      <div class="card-header">
+        <div class="fa fa-user"></div>
+        <% if role.online? %>
+        <div class="text-success fa fa-circle">  Available !!!</div><br>
+          
+          <%= role.email %><br>
+          <%= role.created_at %><br>
+          
+          </div>
+          
+        <% else %>
+          <div class="text-danger fa fa-circle">  Not-available</div><br>
+           <%= role.email %><br>
+           <%= role.created_at %><br>
+          </div>
+         
+        <% end %>
+    
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+

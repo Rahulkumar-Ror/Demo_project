@@ -1,7 +1,4 @@
 <p style="color: green"><%= notice %></p>
-<table>
-<h1>Course1s</h1>
-
 <div id="course1s">
   <% @course1s.each do |course1| %>
     <%= render course1 %>
@@ -10,9 +7,41 @@
     </p>
   <% end %>
 </div>
-
 <%= link_to "New course1", new_course1_path %>
 </table>
 
+<table>
+<%= form_with url: "course1s_path", method: :get do |form| %>
+  <%= form.label :query, "Search for:" %>
+  <%= form.text_field :query %>
+  <%= form.submit "Search" %>
 
+
+
+<% if @course1_search.try(:any?) %>
+<h1>Course1s</h1>
+
+<div id="course1s">
+  <% @course1s.each do |course1| %>
+    <%= render course1 %>
+    
+  <% end %>
+</div>
+<%= link_to "New course1", new_course1_path %>
+</table>
+<% end %>
+<hr>
 <%= paginate @course1s %>
+<% end %>
+
+<br><br><br><br><br>
+
+<section class= "bg-primary my-5 text-center">
+  <article class="py-3 text-white">
+    <div>
+      <h3 class="display-4 text-white">+91 123456789</h3>
+      <p>If you want best service call us now. </p>
+      <button class="btn btn-warning"> Contact now </button>
+    </div>
+  </article>
+</section>

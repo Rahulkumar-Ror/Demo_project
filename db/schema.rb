@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_04_27_095252) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_02_083709) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -49,13 +49,80 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_095252) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "activities", force: :cascade do |t|
+    t.string "trackable_type"
+    t.integer "trackable_id"
+    t.string "owner_type"
+    t.integer "owner_id"
+    t.string "key"
+    t.text "parameters"
+    t.string "recipient_type"
+    t.integer "recipient_id"
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
+    t.index ["owner_id", "owner_type"], name: "index_activities_on_owner_id_and_owner_type"
+    t.index ["owner_type", "owner_id"], name: "index_activities_on_owner"
+    t.index ["recipient_id", "recipient_type"], name: "index_activities_on_recipient_id_and_recipient_type"
+    t.index ["recipient_type", "recipient_id"], name: "index_activities_on_recipient"
+    t.index ["trackable_id", "trackable_type"], name: "index_activities_on_trackable_id_and_trackable_type"
+    t.index ["trackable_type", "trackable_id"], name: "index_activities_on_trackable"
+  end
+
   create_table "course1s", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.string "slug"
+    t.text "short_description"
+    t.string "language", default: "English", null: false
+    t.string "level", default: "Begineer", null: false
+    t.integer "price", default: 0, null: false
+    t.index ["slug"], name: "index_course1s_on_slug", unique: true
     t.index ["user_id"], name: "index_course1s_on_user_id"
+  end
+
+  create_table "friendly_id_slugs", force: :cascade do |t|
+    t.string "slug", null: false
+    t.integer "sluggable_id", null: false
+    t.string "sluggable_type", limit: 50
+    t.string "scope"
+    t.datetime "created_at"
+    t.index ["slug", "sluggable_type", "scope"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope", unique: true
+    t.index ["slug", "sluggable_type"], name: "index_friendly_id_slugs_on_slug_and_sluggable_type"
+    t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
+  end
+
+  create_table "lesson1s", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.integer "course1_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "slug"
+    t.index ["course1_id"], name: "index_lesson1s_on_course1_id"
+    t.index ["slug"], name: "index_lesson1s_on_slug", unique: true
+  end
+
+  create_table "lessons", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.integer "course_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lessons_on_course_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.string "resource_type"
+    t.integer "resource_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.index ["name"], name: "index_roles_on_name"
+    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
   create_table "users", force: :cascade do |t|
@@ -70,7 +137,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_04_27_095252) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "users_roles", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+    t.index ["role_id"], name: "index_users_roles_on_role_id"
+    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+    t.index ["user_id"], name: "index_users_roles_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "course1s", "users"
+  add_foreign_key "lesson1s", "course1s"
+  add_foreign_key "lessons", "courses"
 end

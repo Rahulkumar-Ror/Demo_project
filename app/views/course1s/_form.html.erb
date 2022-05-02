@@ -1,4 +1,4 @@
-
+<div class="container">
 <%= simple_form_for(@course1) do |f| %>
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
@@ -6,8 +6,12 @@
   <div class="form-inputs">
     <%= f.input :title %>
     <%= f.label :description %>
-
     <%= f.rich_text_area :description %>
+    <%= f.label :Short_description %><br>
+    <%= f.text_area :short_description, rows: "10", cols: "100" %>
+    <%= f.input :language, priority: ["Hindi"], collection: ["English", "Hindi", "French"] %>
+    <%= f.input :level, priority: ["Begineer"], collection: ["Begineer", "Intermediate", "Advance"] %>
+    <%= f.input :price %>
   </div>
 
   <div class="form-actions">

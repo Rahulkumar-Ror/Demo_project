@@ -1,0 +1,14 @@
+<h3 style= "color:red;" >Lesson</h3>
+  <div class="header">
+    <div class="card-header">
+      <%= link_to lesson1.title, course1_lesson1_path(lesson1) %><br>
+    </div>
+  <div class="card-body">
+    <%= lesson1.content %><br>
+  </div>
+  <div class="card-footer">
+    <%= link_to "Edit", edit_course1_lesson1_path(lesson1), class: "btn btn-warning btn-sm" %> |
+    <%= link_to " Destroy ", [@course1, lesson1], method: :delete, class: "btn btn-danger btn-sm" %> |
+    <%= link_to " Back ", course1s_path, class: "btn btn-primary btn-sm my-3" %> 
+  </div>
+</div>
