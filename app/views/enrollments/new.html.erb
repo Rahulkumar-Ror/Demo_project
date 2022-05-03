@@ -1,0 +1,9 @@
+<center><h1 class="fa fa-graduation ">Buy course</h1></center>
+
+<%= form_tag course1_enrollments_path(@course1) do %>
+<%= submit_tag "Pay #{@course1.price}", class: "btn btn-success btn-lg" %>
+<% end %>
+
+<div>
+  <%= link_to "Back to enrollments", enrollments_path %>
+</div>

@@ -6,6 +6,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   rolify
   has_many :course1s
+  has_many :enrollments
 
   after_create :assign_default_role
 
@@ -22,5 +23,9 @@ class User < ApplicationRecord
 
   def online?
     updated_at > 2.minutes.ago
+  end
+
+  def buy_course(course1)
+    self.enollments.create(course1: course1, price: course1.price)
   end
 end

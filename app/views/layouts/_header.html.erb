@@ -1,7 +1,7 @@
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
-<nav class="navbar navbar-dark bg-dark ">
+<nav class="navbar navbar-dark bg-info ">
   <a class="navbar-brand" href="#"><i class="fa fa-train"></i>Ruby-gems</a>
   <ul class="nav navbar-nav">
     <li class="nav-item active">
@@ -13,29 +13,25 @@ Home <span class="sr-only">(current)</span></a>
   <b class="fa fa-plus">
   <%= link_to "New course", new_course1_path, method: :get %>
   </b>
+   <b class="fa fa-lock">
+  <%= link_to "New enrollment", enrollments_path, method: :get %>
+  </b>
+
+  <b class="fa fa-user">
+<%= link_to "User", users_path %>
+</b>
+
   <form class="form-inline pull-xs-right">
     <input class="form-control" type="text" placeholder="Search">
     <button class="btn btn-success-outline" type="submit"><i class="fa fa-search"></i>
 Search</button>
   </form>
 
-<b>
-<%= link_to "User", users_path, class: "btn btn-danger btn-sm" %>
-</b>
+
 
 <!-- Example single danger button -->
-<div class="btn-group">
-  <button type="button" class="btn btn-danger dropdown-toggle " data-bs-toggle="dropdown" aria-expanded="false">
-    Action
-  </button>
-  <ul class="dropdown-menu">
-    <li class= "ml-auto"><%= link_to "Sign in", new_user_session_path %></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Separated link</a></li>
-  </ul>
-</div>
+
+
 
 <% if current_user %>
 <i class="fa-solid fa-phone-office"></i>
